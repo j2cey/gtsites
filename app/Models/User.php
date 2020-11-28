@@ -81,6 +81,15 @@ class User extends Authenticatable
 
     #region Eloquent Relationships
 
+    /**
+     * Renvoie le Compte LDAP du User.
+     */
+    public function ldapaccount() {
+        return $this->belongsTo('App\LdapAccount', 'ldap_account_id');
+    }
+
+    #endregion
+
     public function isActive() {
         return $this->is_local || $this->is_ldap;
     }
