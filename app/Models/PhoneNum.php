@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
-class PhoneNum extends Model
+class PhoneNum extends BaseModel
 {
     use HasFactory;
     protected $guarded = [];

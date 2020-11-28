@@ -50,7 +50,7 @@ class LoginController extends Controller
         $username = explode('@', $input['email'])[0];
 
         // Get the user details from database and check if user is exist and active.
-        $user = User::where('username',$username)->first();
+        $user = User::where('email',$input['email'])->first();
 
         if($user){
             if (!$user->isActive()) {
@@ -61,8 +61,8 @@ class LoginController extends Controller
         }
 
         $credentials = [
-            'username' => $username,
-            'email' => $username . '' . config('app.ldap_domain'),
+            'username' => $user->username,
+            'email' => $user->username . '' . config('app.ldap_domain'),
             'password' => $input['password']
         ];
         if ($user->is_ldap) {

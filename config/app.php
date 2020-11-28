@@ -41,6 +41,14 @@ return [
 
     'debug' => (bool) env('APP_DEBUG', false),
 
+    'ldap_host' => env('LDAP_HOST', 'XXX.XXX.XXX.XXX'),
+    'ldap_port' => env('LDAP_PORT', 'XXX'),
+    'ldap_domain' => env('LDAP_DOMAIN', '@XXX'),
+    'ldap_base_dn' => env('LDAP_BASE_DN', 'XXX'),
+    'ldap_tree' => env('LDAP_TREE', 'XXX'),
+    'ldap_base_user' => env('LDAP_BASE_USER', 'XXX'),
+    'ldap_base_userpwd' => env('LDAP_BASE_USERPWD', 'XXX'),
+
     /*
     |--------------------------------------------------------------------------
     | Application URL

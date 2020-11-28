@@ -41,12 +41,12 @@ class LdapAccountImport extends Command
     public function handle()
     {
         \Log::info("Cron en cours de traitement...");
-        Adldap::connect();
+        //Adldap::connect();
         // Tronquage de la table d'importation
         DB::table('ldap_account_imports')->truncate();
 
         // Exécution de la commande d'importation
-        Artisan::call('adldap:import', ['--model' => "\App\LdapAccountImport", '--no-interaction']);
+        Artisan::call('adldap:import', ['--model' => "\App\Models\LdapAccountImport", '--no-interaction']);
 
         \Log::info("Traitement termine.");
         return 0;
