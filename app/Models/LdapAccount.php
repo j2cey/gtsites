@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Traits\Base\BaseTrait;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -66,9 +68,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
-class LdapAccount extends BaseModel
+class LdapAccount extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, BaseTrait;
 
     protected $guarded = [];
 
