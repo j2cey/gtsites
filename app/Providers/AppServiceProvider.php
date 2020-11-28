@@ -3,6 +3,10 @@
 namespace App\Providers;
 
 use App\Models\Setting;
+use App\Repositories\Contracts\IBordereauremiseRepositoryContract;
+use App\Repositories\Contracts\IProductRepositoryContract;
+use App\Repositories\Eloquent\BordereauremiseRepository;
+use App\Repositories\Eloquent\ProductRepository;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -16,7 +20,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(IProductRepositoryContract::class, ProductRepository::class);
+        $this->app->bind(IBordereauremiseRepositoryContract::class, BordereauremiseRepository::class);
     }
 
     /**

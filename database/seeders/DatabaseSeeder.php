@@ -27,5 +27,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TypeDepartementSeeder::class);
         $this->call(BordereauremiseEtatSeeder::class);
         $this->call(BordereauremiseTypeSeeder::class);
+        $this->call(ProductSeeder::class);
     }
 }

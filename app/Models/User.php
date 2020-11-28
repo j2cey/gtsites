@@ -8,6 +8,12 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * Class User
+ * @package App\Models
+ *
+ *
+ */
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles;
@@ -74,4 +80,8 @@ class User extends Authenticatable
     }
 
     #region Eloquent Relationships
+
+    public function isActive() {
+        return $this->is_local || $this->is_ldap;
+    }
 }

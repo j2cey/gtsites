@@ -3,7 +3,7 @@
 
 namespace App\Search\Queries;
 
-use App\Product;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
 
 class ProductSearch extends Search
@@ -13,7 +13,7 @@ class ProductSearch extends Search
     /**
      * @inheritDoc
      */
-    protected function query(): Builder
+    protected function query()//: Builder
     {
         $query = Product::query();
 

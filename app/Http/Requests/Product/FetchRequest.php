@@ -14,7 +14,7 @@ class FetchRequest extends FormRequest  implements ISearchFormRequest
     /**
      * @inheritDoc
      */
-    protected function orderByFields(): array
+    protected function orderByFields()//: array
     {
         return ['name', 'price'];
     }
@@ -22,7 +22,7 @@ class FetchRequest extends FormRequest  implements ISearchFormRequest
     /**
      * @inheritDoc
      */
-    protected function defaultOrderByField(): string
+    protected function defaultOrderByField()//: string
     {
         return 'name';
     }

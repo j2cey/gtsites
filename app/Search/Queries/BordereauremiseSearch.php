@@ -2,7 +2,7 @@
 
 namespace App\Search\Queries;
 
-use App\Bordereauremise;
+use App\Models\Bordereauremise;
 use Illuminate\Database\Eloquent\Builder;
 use Carbon\Carbon;
 
@@ -13,7 +13,7 @@ class BordereauremiseSearch extends Search
     /**
      * @inheritDoc
      */
-    protected function query(): Builder
+    protected function query()
     {
         $query = Bordereauremise::query();
         $user = auth()->user();
