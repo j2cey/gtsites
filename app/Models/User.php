@@ -32,7 +32,8 @@ class User extends Authenticatable
         'image',
         'is_local',
         'is_ldap',
-        'objectguid'
+        'objectguid',
+        'ldap_account_id'
     ];
 
     /**
