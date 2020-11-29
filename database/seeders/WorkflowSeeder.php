@@ -20,7 +20,7 @@ class WorkflowSeeder extends Seeder
                 'description' => "Processus de Traitement des Bordereaux de Remise",
                 'user_id' => 1,
                 'workflow_object_id' => 1,
-                'model_type' => "App\Bordereauremise",
+                'model_type' => "App\Models\Bordereauremise",
             ],
         ];
         foreach ($workflows as $workflow) {
