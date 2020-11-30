@@ -50,7 +50,11 @@ class LoginController extends Controller
         $username = explode('@', $input['email'])[0];
 
         // Get the user details from database and check if user is exist and active.
-        $user = User::where('email',$input['email'])->first();
+        if (filter_var($input['email'], FILTER_VALIDATE_EMAIL)) {
+            $user = User::where('email',$input['email'])->first();
+        } else {
+            $user = User::where('username',$input['email'])->first();
+        }
 
         if($user){
             if (!$user->isActive()) {
@@ -80,7 +84,7 @@ class LoginController extends Controller
         if ($user->is_local) {
             $credentials = $request->only('email', 'password');
             if (Auth::attempt($credentials)) {
-                return redirect('/');
+                return redirect()->intended('/');
             }
         }
 
