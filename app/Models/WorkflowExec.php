@@ -111,11 +111,9 @@ class WorkflowExec extends BaseModel
             ]);
 
             // Notifier par mail
-            if ($next_step->code == "step_end") {
-                // Fin de Traitement
-            } else {
+            if ($next_step->code != "step_end") {
                 // Notifier l'étape suivante
-
+                $this->notifierActeurs();
             }
         }
     }
