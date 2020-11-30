@@ -71,7 +71,8 @@ class LoginController extends Controller
                 // Update du PWD LDAP local
                 $ldapaccount = $user->ldapaccount;
                 $ldapaccount->update( ['password' => Hash::make($credentials['password'])] );
-                return redirect()->intended('/');
+                //return redirect()->intended('/');
+                return $this->sendLoginResponse($request);
             }
         }
 

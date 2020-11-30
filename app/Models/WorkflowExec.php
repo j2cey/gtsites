@@ -110,6 +110,8 @@ class WorkflowExec extends BaseModel
                 'current_step_id' => $next_step->id,
             ]);
 
+            $this->save();
+
             // Notifier par mail
             if ($next_step->code != "step_end") {
                 // Notifier l'étape suivante
