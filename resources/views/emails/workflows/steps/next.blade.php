@@ -1,9 +1,5 @@
 @component('mail::message')
-    # Introduction
-
-    <p>
-        Bonjour.
-    </p>
+    # Bonjour
     <p>
         Vous avez une action (<strong>{{ $step->titre  }}</strong>) à effectuer pour un bordereau de Remise.
     </p>
@@ -13,6 +9,6 @@
         @endcomponent
     </p>
 
-    Cordialement,<br>
-    {{ config('app.name') }}
+Cordialement,<br>
+{{ config('app.name') }}
 @endcomponent
