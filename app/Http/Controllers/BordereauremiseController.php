@@ -181,6 +181,12 @@ class BordereauremiseController extends Controller
         $userprofile = $user->roles()->first();
 
         $exec_step_profile = $bordereauremise->workflowexec->currentstep->profile;
+
+        // récupérer le bon profile utilisateur
+        if ($user->hasRole([$exec_step_profile->name])) {
+            $userprofile = $exec_step_profile;
+        }
+
         $bordereauremise = Bordereauremise::where('id',$bordereauremise->id)
             ->first()
             ->load(['type','localisation', 'modepaiement', 'lignes', 'lignes.currmodelstep','lignes.currmodelstep.exec','lignes.currmodelstep.exec.currentstep','lignes.currmodelstep.exec.currentstep.profile','lignes.currmodelstep.step']);
