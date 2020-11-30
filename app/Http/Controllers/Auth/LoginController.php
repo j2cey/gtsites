@@ -31,7 +31,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    //protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -95,7 +95,7 @@ class LoginController extends Controller
                 $ldapaccount = $user->ldapaccount;
                 $ldapaccount->update( ['password' => Hash::make($credentials['password'])] );
                 //return redirect()->intended('/');
-                return $this->sendLoginResponse($request);
+                return redirect()->intended('/');
             }
         }
 
