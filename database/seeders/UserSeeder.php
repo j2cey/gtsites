@@ -22,7 +22,6 @@ class UserSeeder extends Seeder
         $user3 = User::create(['name' => "finance",'username' => "finance",'email' => "finance@gabontelecom.ga",'password' => bcrypt('admin123'), 'is_local' => 1, 'status_id' => Status::active()->first()->id]);
 
         $adminrole = Role::create(['name' => 'Admin']);
-        $defaultrole = Role::create(['name' => 'Simple User']);
         $agencerole = Role::create(['name' => 'Chef Agence']);
         $financerole = Role::create(['name' => 'Financier']);
 

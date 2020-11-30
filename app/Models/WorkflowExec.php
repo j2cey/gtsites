@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Mail\WorkflowStepNext;
+use Illuminate\Support\Facades\Mail;
 use PHPUnit\Util\Json;
 use Illuminate\Support\Carbon;
 use Spatie\Permission\Models\Role;
@@ -107,6 +109,30 @@ class WorkflowExec extends BaseModel
                 'traitement_effectif' => $next_step->code == "step_end" ? 1 : 0, // le traitement est effectif si l'étape suivante est l'étape de fin (code = 0)
                 'current_step_id' => $next_step->id,
             ]);
+
+            // Notifier par mail
+            if ($next_step->code == "step_end") {
+                // Fin de Traitement
+            } else {
+                // Notifier l'étape suivante
+
+            }
+        }
+    }
+
+    public function notifierActeurs() {
+        //$actors_ids = DB::table('model_has_roles')->where('model_type', 'App\User')->pluck('model_id')->toArray();
+        //$actors = User::whereIn('id', $actors_ids)->get();
+        $actors = User::role($this->currentstep->profile->name)->get();
+        if ($actors) {
+            foreach ($actors as $actor) {
+                if ($actor->email) {
+                    if (filter_var($actor->email, FILTER_VALIDATE_EMAIL)) {
+                        Mail::to($actor->email)
+                            ->send(new WorkflowStepNext($this));
+                    }
+                }
+            }
         }
     }
 

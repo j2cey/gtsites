@@ -81,13 +81,13 @@ class Bordereauremise extends BaseModel
 
     public function workflowexecs() {
         return $this->hasMany(WorkflowExec::class, 'model_id')
-            ->where('model_type', 'App\Bordereauremise');
+            ->where('model_type', 'App\Models\Bordereauremise');
         //->whereNotNull('current_step_id');
     }
 
     public function workflowexec() {
         return $this->hasOne(WorkflowExec::class, 'model_id')
-            ->where('model_type', 'App\Bordereauremise')
+            ->where('model_type', 'App\Models\Bordereauremise')
             ->latest();
         //->whereNotNull('current_step_id');
     }
