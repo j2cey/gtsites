@@ -107,7 +107,8 @@ class LoginController extends Controller
         if ($user->is_local) {
             $credentials = $request->only('email', 'password');
             if (Auth::attempt($credentials)) {
-                return redirect()->intended('/');
+                //return redirect()->intended('/');
+                return redirect(session('url.intended'));
             }
         }
 
