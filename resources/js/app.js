@@ -100,6 +100,8 @@ Vue.component('bordereauremise-index', require('./views/bordereauremises/index')
 Vue.component('bordereauremise-show', require('./views/bordereauremises/show').default);
 Vue.component("rawDisplayer", rawDisplayer);
 
+Vue.component('user-show', require('./views/users/show').default);
+
 Vue.component('times-circle', require('./components/Icons/TimesCircle').default);
 Vue.component('select-angle', require('./components/Form/SelectAngle').default);
 

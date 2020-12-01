@@ -57,6 +57,8 @@ class User extends Authenticatable
     ];*/
     protected $guarded = [];
 
+    public function getRouteKeyName() { return 'uuid'; }
+
     /**
      * The attributes that should be hidden for arrays.
      *

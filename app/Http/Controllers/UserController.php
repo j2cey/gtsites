@@ -60,7 +60,8 @@ class UserController extends Controller
      * @return View           [description]
      */
     public function edit(User $user): View {
-        return view('users.edit')->with('user', $user);
+        $user->load('ldapaccount');
+        return view('users.details')->with('user', $user);
     }
 
     /**
