@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Traits\Base\BaseTrait;
+use Illuminate\Support\Carbon;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -12,18 +14,36 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * Class User
  * @package App\Models
  *
+ * @property integer $id
  *
+ * @property string $uuid
+ * @property bool $is_default
+ * @property string|null $tags
+ * @property integer|null $status_id
+ *
+ * @property string $name
+ * @property string $email
+ * @property string $username
+ * @property Carbon|null $email_verified_at
+ * @property string $password
+ * @property string|null $image
+ * @property boolean $is_local
+ * @property boolean $is_ldap
+ * @property string|null $objectguid
+ *
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  */
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles, BaseTrait;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
+    /*protected $fillable = [
         'name',
         'email',
         'password',
@@ -34,7 +54,7 @@ class User extends Authenticatable
         'is_ldap',
         'objectguid',
         'ldap_account_id'
-    ];
+    ];*/
 
     /**
      * The attributes that should be hidden for arrays.
@@ -92,6 +112,7 @@ class User extends Authenticatable
     #endregion
 
     public function isActive() {
-        return $this->is_local || $this->is_ldap;
+        //return $this->is_local || $this->is_ldap;
+        return Status::active()->first() ? $this->status_id === Status::active()->first()->id : false;
     }
 }

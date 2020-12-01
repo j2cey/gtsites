@@ -1,11 +1,17 @@
 <?php
 
+use App\Traits\Migrations\BaseMigrationTrait;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 class CreateUsersTable extends Migration
 {
+    use BaseMigrationTrait;
+
+    public $table_name = 'users';
+    public $table_comment = 'Liste de utilisateurs';
+
     /**
      * Run the migrations.
      *
@@ -13,8 +19,10 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create($this->table_name, function (Blueprint $table) {
             $table->id();
+            $table->baseFields();
+
             $table->string('name');
             $table->string('email')->unique();
             $table->string('username')->unique()->comment('login du compte ou première partie de l adresse e-mail');
@@ -27,8 +35,8 @@ class CreateUsersTable extends Migration
             $table->string('objectguid')->nullable()->comment('GUID du compte');
 
             $table->rememberToken();
-            $table->timestamps();
         });
+        $this->setTableComment($this->table_name,$this->table_comment);
     }
 
     /**
@@ -38,6 +46,9 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::table($this->table_name, function (Blueprint $table) {
+            $table->dropBaseForeigns();
+        });
+        Schema::dropIfExists($this->table_name);
     }
 }
