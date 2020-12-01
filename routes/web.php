@@ -110,3 +110,8 @@ Route::get('dashboards/fetchagence/{id}',[DashboardController::class,'fetchagenc
 Route::get('bordereauremiselocs.fetch',[BordereauremiseLocController::class,'fetch'])
     ->name('bordereauremiselocs.fetch')
     ->middleware('auth');
+
+Route::resource('users',UserController::class)->middleware('auth');
+Route::get('users.fetch',[UserController::class,'fetch'])
+    ->name('users.fetch')
+    ->middleware('auth');
