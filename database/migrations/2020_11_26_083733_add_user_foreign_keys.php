@@ -14,10 +14,6 @@ class AddUserForeignKeys extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('status_id')->nullable()
-                ->comment('reference du statut')
-                ->constrained('statuses')->onDelete('set null');
-
             $table->foreignId('ldap_account_id')->nullable()
                 ->comment('reference du compte LDAP')
                 ->constrained('ldap_accounts')->onDelete('set null');
