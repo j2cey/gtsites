@@ -16,7 +16,7 @@
 
                     <search-form
                         group="user-search"
-                        url="{{ route('user.fetch') }}"
+                        url="{{ route('users.fetch') }}"
                         :params="{
                             search: '',
                             per_page: {{ $defaultPerPage }},

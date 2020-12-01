@@ -30,8 +30,8 @@ class User extends JsonResource
             'name' => $this->name,
             'username' => $this->username,
             'email' => $this->email,
-            'edit_url' => route('product.edit', $this->uuid),
-            'destroy_url' => route('product.destroy', $this->uuid),
+            'edit_url' => route('users.edit', $this->uuid),
+            'destroy_url' => route('users.destroy', $this->uuid),
         ];
     }
 }
