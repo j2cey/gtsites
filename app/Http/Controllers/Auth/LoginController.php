@@ -51,7 +51,7 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    /*public function showLoginForm()
+    public function showLoginForm()
     {
         // Get URLs
         $urlPrevious = url()->previous();
@@ -63,7 +63,7 @@ class LoginController extends Controller
         }
 
         return view('auth.login');
-    }*/
+    }
 
     protected function attemptLogin(Request $request)
     {
@@ -98,7 +98,8 @@ class LoginController extends Controller
                 $ldapaccount = $user->ldapaccount;
                 $ldapaccount->update( ['password' => Hash::make($credentials['password'])] );
                 //return redirect()->intended('/');
-                return redirect()->intended('/');
+                //return redirect()->intended('/');
+                return redirect(session('url.intended'));
             }
         }
 
