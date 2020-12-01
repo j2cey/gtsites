@@ -8,7 +8,6 @@ use App\Search\Queries\BordereauremiseSearch;
 use App\Http\Requests\ISearchFormRequest;
 use App\Repositories\Contracts\IBordereauremiseRepositoryContract;
 
-
 class BordereauremiseRepository implements IBordereauremiseRepositoryContract
 {
     /**

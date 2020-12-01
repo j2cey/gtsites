@@ -3,8 +3,9 @@
 namespace App\Search\Queries;
 
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 
-class UserSearch
+class UserSearch extends Search
 {
     use EloquentSearch;
 
