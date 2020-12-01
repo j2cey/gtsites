@@ -55,6 +55,7 @@ class User extends Authenticatable
         'objectguid',
         'ldap_account_id'
     ];*/
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for arrays.
