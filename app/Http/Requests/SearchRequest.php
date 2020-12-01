@@ -125,6 +125,8 @@ trait SearchRequest
         );
     }
 
+    abstract protected function getCustomPayload();
+
     /**
      * Get search payload.
      *
@@ -132,14 +134,7 @@ trait SearchRequest
      */
     protected function payload(): Payload
     {
-        $payload = "";
-        //$payload = $this->addToPayload($payload, 'search', $this->search);
-        $payload = $this->addToPayload($payload, 'dateremise_du', substr($this->dateremise_du, 0, 10));
-        $payload = $this->addToPayload($payload, 'dateremise_au', substr($this->dateremise_au, 0, 10));
-        $payload = $this->addToPayload($payload, 'localisation', $this->localisation);
-        $payload = $this->addToPayload($payload, 'statut', $this->statut);
-
-        return new SearchOnlyPayload($payload);
+        return new SearchOnlyPayload($this->getCustomPayload() ?? null);
     }
 
     /**
@@ -152,7 +147,7 @@ trait SearchRequest
         return new OrderBy($this->order_field, $this->order_direction);
     }
 
-    private function addToPayload($payload, $key, $val) {
+    public function addToPayload($payload, $key, $val) {
         if ($val) {
             if ($payload !== "") {
                 $payload = $payload . '|' . $key . ':' . $val;

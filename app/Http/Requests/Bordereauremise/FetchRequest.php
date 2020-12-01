@@ -26,4 +26,16 @@ class FetchRequest extends FormRequest  implements ISearchFormRequest
     {
         return 'numero_transaction';
     }
+
+    protected function getCustomPayload()
+    {
+        $payload = "";
+        //$payload = $this->addToPayload($payload, 'search', $this->search);
+        $payload = $this->addToPayload($payload, 'dateremise_du', substr($this->dateremise_du, 0, 10));
+        $payload = $this->addToPayload($payload, 'dateremise_au', substr($this->dateremise_au, 0, 10));
+        $payload = $this->addToPayload($payload, 'localisation', $this->localisation);
+        $payload = $this->addToPayload($payload, 'statut', $this->statut);
+
+        return $payload;
+    }
 }

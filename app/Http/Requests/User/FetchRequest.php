@@ -26,4 +26,9 @@ class FetchRequest extends FormRequest  implements ISearchFormRequest
     {
         return 'name';
     }
+
+    protected function getCustomPayload()
+    {
+        return $this->search;
+    }
 }
