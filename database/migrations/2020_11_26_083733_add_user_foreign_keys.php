@@ -28,7 +28,6 @@ class AddUserForeignKeys extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign(['status_id']);
             $table->dropForeign(['ldap_account_id']);
         });
     }
