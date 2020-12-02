@@ -47,9 +47,13 @@ class WorkflowObjectField extends BaseModel
 
     #endregion
 
+    #region Eloquent Relationships
+
     public function object() {
         return $this->belongsTo(WorkflowObject::class, 'workflow_object_id');
     }
+
+    #endregion
 
     public static function boot(){
         parent::boot();

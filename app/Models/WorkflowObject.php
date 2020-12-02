@@ -42,6 +42,8 @@ class WorkflowObject extends BaseModel
 
     #endregion
 
+    #region Eloquent Relationships
+
     public function fields() {
         return $this->hasMany(WorkflowObjectField::class);
     }
@@ -49,4 +51,6 @@ class WorkflowObject extends BaseModel
     public function parent() {
         return $this->belongsTo(WorkflowObject::class, 'workflow_object_parent_id');
     }
+
+    #endregion
 }

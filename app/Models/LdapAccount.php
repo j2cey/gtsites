@@ -86,6 +86,8 @@ class LdapAccount extends Authenticatable
 
     #endregion
 
+    #region Custom Functions
+
     public function getTableColumns() {
         //$columns = $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getTable());
         //$columns = \DB::getSchemaBuilder()->getColumnListing($this->getTable());
@@ -109,4 +111,6 @@ class LdapAccount extends Authenticatable
     {
         return $this->samaccountname;
     }
+
+    #endregion
 }

@@ -37,6 +37,8 @@ class Setting extends Model
 
     #endregion
 
+    #region Custom Functions
+
     public static function getAllGrouped() {
         try {
             /*$collection = Setting::all()->groupBy('group');
@@ -101,4 +103,6 @@ class Setting extends Model
         }
         return $setting['value'];
     }
+
+    #endregion
 }

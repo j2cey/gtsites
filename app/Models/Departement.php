@@ -109,6 +109,8 @@ class Departement extends BaseModel
 
     #endregion
 
+    #region Custom Functions
+
     public static function getCheminComplet($intitule, $parent_id) {
         if (is_null($parent_id)) {
             return $intitule;

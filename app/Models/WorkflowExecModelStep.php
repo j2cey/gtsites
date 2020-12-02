@@ -84,6 +84,8 @@ class WorkflowExecModelStep extends BaseModel
 
     #endregion
 
+    #region Custom Functions
+
     public function Traiter() {
         $nb_actions_non_traitees = DB::table('model_step_actions')
             ->where('workflow_exec_model_step_id', $this->id)
@@ -98,4 +100,6 @@ class WorkflowExecModelStep extends BaseModel
             $this->exec->Traiter();
         }
     }
+
+    #endregion
 }

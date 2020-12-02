@@ -130,8 +130,12 @@ class User extends Authenticatable
 
     #endregion
 
+    #region Custom Functions
+
     public function isActive() {
         //return $this->is_local || $this->is_ldap;
         return Status::active()->first() ? $this->status_id === Status::active()->first()->id : false;
     }
+
+    #endregion
 }

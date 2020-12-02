@@ -57,6 +57,8 @@ class WorkflowAction extends BaseModel
 
     #endregion
 
+    #region Eloquent Relationships
+
     public function type() {
         return $this->belongsTo(WorkflowActionType::class, 'workflow_action_type_id');
     }
@@ -87,6 +89,8 @@ class WorkflowAction extends BaseModel
             ;
     }
 
+    #endregion
+
     #region Validation Rules
 
     public static function defaultRules() {
@@ -107,6 +111,8 @@ class WorkflowAction extends BaseModel
     }
 
     #endregion
+
+    #region Custom Functions
 
     public function setValidationRules($reset_befor = true) {
         if ($reset_befor || is_null($this->validation_rules)) {
@@ -304,6 +310,8 @@ class WorkflowAction extends BaseModel
                 'rejete' => $rejetee ? 1 : 0,
             ]);
     }
+
+    #endregion
 
     public static function boot(){
         parent::boot();

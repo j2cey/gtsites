@@ -106,6 +106,10 @@ class WorkflowExec extends BaseModel
         return $this->workflow->nextStep($this->currentstep->posi);
     }
 
+    #endregion
+
+    #region Custom Functions
+
     public function Traiter() {
         $nb_currsteps_non_traitees = DB::table('workflow_exec_model_steps')
             ->where('workflow_exec_id', $this->id)
@@ -147,6 +151,8 @@ class WorkflowExec extends BaseModel
         }
     }
 
+    #endregion
+
     public static function boot(){
         parent::boot();
 
@@ -175,6 +181,4 @@ class WorkflowExec extends BaseModel
             }
         });
     }
-
-    #endregion
 }

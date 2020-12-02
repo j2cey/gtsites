@@ -40,9 +40,13 @@ class BordereauremiseEtat extends BaseModel
 
     #endregion
 
+    #region Scopes
+
     public function scopeCoded($query, $code) {
         return $query
             ->where('code', $code)
             ;
     }
+
+    #endregion
 }

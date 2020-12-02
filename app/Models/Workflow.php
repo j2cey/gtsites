@@ -81,6 +81,8 @@ class Workflow extends BaseModel
 
     #endregion
 
+    #region Custom
+
     public function nextStep($posi) {
         $next_step = $this->steps()
             ->where('posi', $posi + 1)
@@ -92,4 +94,6 @@ class Workflow extends BaseModel
         }
         return $next_step;
     }
+
+    #endregion
 }
