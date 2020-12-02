@@ -36,17 +36,13 @@
                     <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Utilisateurs</a>
                     <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                         <li class="nav-item">
-                            <router-link tag="a" to="/users" class="nav-link">
-                                <i class="fas fa-send"></i> Liste
-                            </router-link>
+                            <a href="/users" class="nav-link">Liste</a>
                         </li>
                         <li class="dropdown-submenu dropdown-hover">
                             <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Profiles</a>
                             <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
-                                <li>
-                                    <router-link tag="a" to="/roles" class="nav-link">
-                                        <i class="fas fa-send"></i> Liste
-                                    </router-link>
+                                <li class="nav-item">
+                                    <a href="/roles" class="nav-link">Liste</a>
                                 </li>
                             </ul>
                         </li>

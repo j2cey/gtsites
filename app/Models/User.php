@@ -105,6 +105,10 @@ class User extends Authenticatable
 
     #region Eloquent Relationships
 
+    public function status() {
+        return $this->belongsTo(Status::class);
+    }
+
     /**
      * Renvoie le Compte LDAP du User.
      */

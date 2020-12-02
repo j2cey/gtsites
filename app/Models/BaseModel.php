@@ -29,7 +29,7 @@ class BaseModel extends Model
     #region Eloquent Relationships
 
     public function status() {
-        return $this->belongsTo('App\Status');
+        return $this->belongsTo(Status::class);
     }
 
     #endregion

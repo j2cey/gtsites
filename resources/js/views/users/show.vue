@@ -10,7 +10,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Détails Bordereau</li>
+                            <li class="breadcrumb-item active">Détails User</li>
                         </ol>
                     </div>
                 </div>
@@ -33,23 +33,11 @@
                                          alt="User profile picture">
                                 </div>
 
-                                <h3 class="profile-username text-center">Nina Mcintire</h3>
+                                <h3 class="profile-username text-center">{{ user.name }}</h3>
+                                <p class="text-muted text-center">{{ user.ldapaccount.description }}</p>
+                                <hr>
+                                <p class="text-muted text-center">{{ user.ldapaccount.department ? user.ldapaccount.department : user.ldapaccount.physicaldeliveryofficename }}</p>
 
-                                <p class="text-muted text-center">Software Engineer</p>
-
-                                <ul class="list-group list-group-unbordered mb-3">
-                                    <li class="list-group-item">
-                                        <b>Followers</b> <a class="float-right">1,322</a>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <b>Following</b> <a class="float-right">543</a>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <b>Friends</b> <a class="float-right">13,287</a>
-                                    </li>
-                                </ul>
-
-                                <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -58,22 +46,25 @@
                         <!-- About Me Box -->
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">About Me</h3>
+                                <h3 class="card-title">Détails</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <strong><i class="fas fa-book mr-1"></i> Education</strong>
-
+                                <strong><i class="fa fa-shield mr-1"></i> Statut</strong>
                                 <p class="text-muted">
-                                    B.S. in Computer Science from the University of Tennessee at Knoxville
+                                    <small>
+                                        <span class="badge badge-success" v-if="user.status.code == 'active'">{{ user.status.name }}</span>
+                                        <span class="badge badge-danger" v-else>{{ user.status.name }}</span>
+                                    </small>
                                 </p>
-
                                 <hr>
 
-                                <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
+                                <strong><i class="fas fa-phone mr-1"></i> Phone</strong>
+                                <p class="text-muted"><small>{{ user.ldapaccount.telephonenumber }}</small></p>
+                                <hr>
 
-                                <p class="text-muted">Malibu, California</p>
-
+                                <strong><i class="fas fa-envelope mr-1"></i> E-mail</strong>
+                                <p class="text-muted">{{ user.ldapaccount.mail }}</p>
                                 <hr>
 
                                 <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
@@ -391,6 +382,7 @@
         },
         data() {
             return {
+                user: this.user_prop,
                 img_user4: 'AdminLTE/dist/img/user4-128x128.jpg',
             };
         },
