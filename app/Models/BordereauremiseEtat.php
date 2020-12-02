@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Carbon;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class BordereauremiseEtat
@@ -25,8 +26,19 @@ use Illuminate\Support\Carbon;
  */
 class BordereauremiseEtat extends BaseModel
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
     protected $guarded = [];
+
+    #region Spatie LogsActivity
+
+    protected static $logAttributes = ['*'];
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "Action sur [Etat de Bordereau de Remise]: {$eventName}";
+    }
+
+    #endregion
 
     public function scopeCoded($query, $code) {
         return $query

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\Base\Uuidable;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -25,9 +26,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class Status extends Model
 {
-    use HasFactory, Uuidable;
+    use HasFactory, LogsActivity, Uuidable;
 
     protected $guarded = [];
+
+    #region Spatie LogsActivity
+
+    protected static $logAttributes = ['*'];
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "Action sur [Statut]: {$eventName}";
+    }
+
+    #endregion
 
     #region Scopes
 

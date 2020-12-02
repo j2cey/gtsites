@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Support\Carbon;
 use Spatie\Permission\Models\Role;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -30,9 +31,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class WorkflowStep extends BaseModel
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     protected $guarded = [];
+
+    #region Spatie LogsActivity
+
+    protected static $logAttributes = ['*'];
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "Action sur [Etape de Workflow]: {$eventName}";
+    }
+
+    #endregion
 
     #region Eloquent Relationships
 
@@ -69,11 +81,17 @@ class WorkflowStep extends BaseModel
 
     #endregion
 
+    #region Scopes
+
     public function scopeCoded($query, $code) {
         return $query
             ->where('code', $code)
             ;
     }
+
+    #endregion
+
+    #region Custom Functions
 
     public function updateBordereauremises() {
         $bordereauremises_ids = WorkflowExec::where('model_type', Bordereauremise::class)
@@ -105,6 +123,8 @@ class WorkflowStep extends BaseModel
             return false;
         }
     }
+
+    #endregion
 
     public static function boot(){
         parent::boot();

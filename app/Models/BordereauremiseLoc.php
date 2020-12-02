@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Support\Carbon;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -25,9 +26,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class BordereauremiseLoc extends BaseModel
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
     protected $guarded = [];
     protected $table = 'bordereauremise_locs';
+
+    #region Spatie LogsActivity
+
+    protected static $logAttributes = ['*'];
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "Action sur [Localisation de Bordereau de Remise]: {$eventName}";
+    }
+
+    #endregion
 
     #region Eloquent Relationships
 

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Support\Carbon;
 use App\Traits\PhoneNum\HasPhoneNums;
+use Spatie\Activitylog\Traits\LogsActivity;
 use App\Traits\EmailAddress\HasEmailAddresses;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -34,8 +35,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class Employe extends BaseModel
 {
-    use HasFactory, HasEmailAddresses, HasPhoneNums;
+    use HasFactory, LogsActivity, HasEmailAddresses, HasPhoneNums;
     protected $guarded = [];
+
+    #region Spatie LogsActivity
+
+    protected static $logAttributes = ['*'];
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "Action sur [Employe]: {$eventName}";
+    }
+
+    #endregion
 
     /**
      * Get the employe's full concatenated name.

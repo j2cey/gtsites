@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Support\Carbon;
+use Spatie\Activitylog\Traits\LogsActivity;
 use App\Traits\Workflow\HasWorkflowsOrActions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -36,8 +37,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class BordereauremiseLigne extends BaseModel
 {
-    use HasFactory, HasWorkflowsOrActions;
+    use HasFactory, LogsActivity, HasWorkflowsOrActions;
     protected $guarded = [];
+
+    #region Spatie LogsActivity
+
+    protected static $logAttributes = ['*'];
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "Action sur [Ligne de Bordereau de Remise]: {$eventName}";
+    }
+
+    #endregion
 
     #region Eloquent Relationships
 

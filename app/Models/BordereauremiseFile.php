@@ -4,6 +4,7 @@ namespace App\Models;
 
 use PHPUnit\Util\Json;
 use Illuminate\Support\Carbon;
+use Spatie\Activitylog\Traits\LogsActivity;
 use App\Traits\BordereauremiseFile\ImportFileTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -42,7 +43,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class BordereauremiseFile extends BaseModel
 {
-    use HasFactory, ImportFileTrait;
+    use HasFactory, ImportFileTrait, LogsActivity;
+
+    #region Spatie LogsActivity
+
+    protected static $logAttributes = ['*'];
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "Action sur [Fichier de Bordereau de Remise]: {$eventName}";
+    }
+
+    #endregion
 
     protected $guarded = [];
 }

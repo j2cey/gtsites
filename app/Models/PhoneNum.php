@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Support\Carbon;
-use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -24,6 +24,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class PhoneNum extends BaseModel
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
     protected $guarded = [];
+
+    #region Spatie LogsActivity
+
+    protected static $logAttributes = ['*'];
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "Action sur [Numero Telephone]: {$eventName}";
+    }
+
+    #endregion
 }

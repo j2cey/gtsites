@@ -4,7 +4,7 @@ namespace App\Models;
 
 use PHPUnit\Util\Json;
 use Illuminate\Support\Carbon;
-use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -30,6 +30,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class LdapAccountImportResult extends BaseModel
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
     protected $guarded = [];
+
+    #region Spatie LogsActivity
+
+    protected static $logAttributes = ['*'];
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "Action sur [Resultat Importation Compte LDAP]: {$eventName}";
+    }
+
+    #endregion
 }

@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use App\Traits\Base\BaseTrait;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Carbon;
+use App\Traits\Base\BaseTrait;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * Class LdapAccount
@@ -70,9 +71,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class LdapAccount extends Authenticatable
 {
-    use HasFactory, BaseTrait;
+    use HasFactory, LogsActivity, BaseTrait;
 
     protected $guarded = [];
+
+    #region Spatie LogsActivity
+
+    protected static $logAttributes = ['*'];
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "Action sur [Compte LDAP]: {$eventName}";
+    }
+
+    #endregion
 
     public function getTableColumns() {
         //$columns = $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getTable());

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Support\Carbon;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -32,8 +33,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class WorkflowObjectField extends BaseModel
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
     protected $guarded = [];
+
+    #region Spatie LogsActivity
+
+    protected static $logAttributes = ['*'];
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "Action sur [Champs d Objet de Workflow]: {$eventName}";
+    }
+
+    #endregion
 
     public function object() {
         return $this->belongsTo(WorkflowObject::class, 'workflow_object_id');

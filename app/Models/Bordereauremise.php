@@ -3,11 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
+use Spatie\Activitylog\Traits\LogsActivity;
 use App\Traits\Workflow\HasWorkflowsOrActions;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -51,11 +48,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class Bordereauremise extends BaseModel
 {
-    use HasFactory, HasWorkflowsOrActions;
+    use HasFactory, HasWorkflowsOrActions, LogsActivity;
 
     protected $guarded = [];
     protected $table = 'bordereauremises';
     //protected $with = ['localisation'];
+
+    #region Spatie LogsActivity
+
+    protected static $logAttributes = ['*'];
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "Action sur [Bordereau de Remise]: {$eventName}";
+    }
+
+    #endregion
 
     #region Eloquent Relationships
 

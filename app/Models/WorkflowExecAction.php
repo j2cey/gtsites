@@ -4,8 +4,7 @@ namespace App\Models;
 
 use PHPUnit\Util\Json;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -33,8 +32,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class WorkflowExecAction extends BaseModel
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
     protected $guarded = [];
+
+    #region Spatie LogsActivity
+
+    protected static $logAttributes = ['*'];
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "Action sur [Execution Action de Workflow]: {$eventName}";
+    }
+
+    #endregion
 
     #region Eloquent Relationships
 

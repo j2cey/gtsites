@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use App\Traits\Image\HasImageFile;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use App\Traits\Image\HasImageFile;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -39,11 +40,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class WorkflowAction extends BaseModel
 {
-    use HasFactory, HasImageFile;
+    use HasFactory, LogsActivity, HasImageFile;
     protected $guarded = [];
 
     public $validation_rules;
     public $validation_messages;
+
+    #region Spatie LogsActivity
+
+    protected static $logAttributes = ['*'];
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "Action sur [Action de Workflow]: {$eventName}";
+    }
+
+    #endregion
 
     public function type() {
         return $this->belongsTo(WorkflowActionType::class, 'workflow_action_type_id');

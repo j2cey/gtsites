@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Carbon;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Class BordereauremiseModepaie
@@ -25,8 +26,19 @@ use Illuminate\Support\Carbon;
  */
 class BordereauremiseModepaie extends BaseModel
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
     protected $guarded = [];
+
+    #region Spatie LogsActivity
+
+    protected static $logAttributes = ['*'];
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return "Action sur [Mode de Paiement de Bordereau de Remise]: {$eventName}";
+    }
+
+    #endregion
 
     #region Eloquent Relationships
 
