@@ -6,6 +6,7 @@ use App\Traits\Base\BaseTrait;
 use Illuminate\Support\Carbon;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
+use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -35,9 +36,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
-class User extends Authenticatable
+class User extends Authenticatable implements Auditable
 {
-    use HasFactory, Notifiable, HasRoles, LogsActivity, BaseTrait;
+    use HasFactory, Notifiable, HasRoles, LogsActivity, \OwenIt\Auditing\Auditable, BaseTrait;
 
     /**
      * The attributes that are mass assignable.

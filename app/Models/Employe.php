@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Support\Carbon;
 use App\Traits\PhoneNum\HasPhoneNums;
+use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\Activitylog\Traits\LogsActivity;
 use App\Traits\EmailAddress\HasEmailAddresses;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,9 +34,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
-class Employe extends BaseModel
+class Employe extends BaseModel implements Auditable
 {
-    use HasFactory, LogsActivity, HasEmailAddresses, HasPhoneNums;
+    use HasFactory, LogsActivity, \OwenIt\Auditing\Auditable, HasEmailAddresses, HasPhoneNums;
     protected $guarded = [];
 
     #region Spatie LogsActivity

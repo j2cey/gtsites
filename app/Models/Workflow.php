@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Support\Carbon;
+use OwenIt\Auditing\Contracts\Auditable;
 use App\Traits\Workflow\WorkflowExecTrait;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -27,9 +28,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
-class Workflow extends BaseModel
+class Workflow extends BaseModel implements Auditable
 {
-    use HasFactory, LogsActivity, WorkflowExecTrait;
+    use HasFactory, LogsActivity, \OwenIt\Auditing\Auditable, WorkflowExecTrait;
 
     protected $guarded = [];
 

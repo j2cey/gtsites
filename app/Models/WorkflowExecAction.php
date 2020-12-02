@@ -4,6 +4,7 @@ namespace App\Models;
 
 use PHPUnit\Util\Json;
 use Illuminate\Support\Carbon;
+use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -30,9 +31,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
-class WorkflowExecAction extends BaseModel
+class WorkflowExecAction extends BaseModel implements Auditable
 {
-    use HasFactory, LogsActivity;
+    use HasFactory, LogsActivity, \OwenIt\Auditing\Auditable;
     protected $guarded = [];
 
     #region Spatie LogsActivity

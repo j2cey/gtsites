@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Support\Carbon;
+use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\Activitylog\Traits\LogsActivity;
 use App\Traits\Workflow\HasWorkflowsOrActions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -35,9 +36,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
-class BordereauremiseLigne extends BaseModel
+class BordereauremiseLigne extends BaseModel implements Auditable
 {
-    use HasFactory, LogsActivity, HasWorkflowsOrActions;
+    use HasFactory, LogsActivity, \OwenIt\Auditing\Auditable, HasWorkflowsOrActions;
     protected $guarded = [];
 
     #region Spatie LogsActivity

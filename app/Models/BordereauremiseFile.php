@@ -4,6 +4,7 @@ namespace App\Models;
 
 use PHPUnit\Util\Json;
 use Illuminate\Support\Carbon;
+use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\Activitylog\Traits\LogsActivity;
 use App\Traits\BordereauremiseFile\ImportFileTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -41,9 +42,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
-class BordereauremiseFile extends BaseModel
+class BordereauremiseFile extends BaseModel implements Auditable
 {
-    use HasFactory, ImportFileTrait, LogsActivity;
+    use HasFactory, ImportFileTrait, LogsActivity, \OwenIt\Auditing\Auditable;
 
     #region Spatie LogsActivity
 

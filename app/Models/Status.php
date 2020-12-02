@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\Base\Uuidable;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -24,9 +25,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
-class Status extends Model
+class Status extends Model implements Auditable
 {
-    use HasFactory, LogsActivity, Uuidable;
+    use HasFactory, LogsActivity, \OwenIt\Auditing\Auditable, Uuidable;
 
     protected $guarded = [];
 

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Traits\Image\HasImageFile;
+use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -38,9 +39,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
-class WorkflowAction extends BaseModel
+class WorkflowAction extends BaseModel implements Auditable
 {
-    use HasFactory, LogsActivity, HasImageFile;
+    use HasFactory, LogsActivity, \OwenIt\Auditing\Auditable, HasImageFile;
     protected $guarded = [];
 
     public $validation_rules;

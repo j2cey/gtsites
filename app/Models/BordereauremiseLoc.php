@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Support\Carbon;
+use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -24,9 +25,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
-class BordereauremiseLoc extends BaseModel
+class BordereauremiseLoc extends BaseModel implements Auditable
 {
-    use HasFactory, LogsActivity;
+    use HasFactory, LogsActivity, \OwenIt\Auditing\Auditable;
     protected $guarded = [];
     protected $table = 'bordereauremise_locs';
 
