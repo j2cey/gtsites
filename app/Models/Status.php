@@ -6,7 +6,6 @@ use App\Traits\Base\Uuidable;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -27,20 +26,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class Status extends Model implements Auditable
 {
-    use HasFactory, LogsActivity, \OwenIt\Auditing\Auditable, Uuidable;
+    use HasFactory, \OwenIt\Auditing\Auditable, Uuidable;
 
     protected $guarded = [];
-
-    #region Spatie LogsActivity
-
-    protected static $logAttributes = ['*'];
-
-    public function getDescriptionForEvent(string $eventName): string
-    {
-        return "Action sur [Statut]: {$eventName}";
-    }
-
-    #endregion
 
     #region Scopes
 

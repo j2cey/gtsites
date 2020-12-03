@@ -6,7 +6,6 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Traits\Image\HasImageFile;
 use OwenIt\Auditing\Contracts\Auditable;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -41,22 +40,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class WorkflowAction extends BaseModel implements Auditable
 {
-    use HasFactory, LogsActivity, \OwenIt\Auditing\Auditable, HasImageFile;
+    use HasFactory, \OwenIt\Auditing\Auditable, HasImageFile;
     protected $guarded = [];
 
     public $validation_rules;
     public $validation_messages;
-
-    #region Spatie LogsActivity
-
-    protected static $logAttributes = ['*'];
-
-    public function getDescriptionForEvent(string $eventName): string
-    {
-        return "Action sur [Action de Workflow]: {$eventName}";
-    }
-
-    #endregion
 
     #region Eloquent Relationships
 

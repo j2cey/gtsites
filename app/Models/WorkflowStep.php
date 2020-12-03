@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Support\Carbon;
 use Spatie\Permission\Models\Role;
 use OwenIt\Auditing\Contracts\Auditable;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -32,20 +31,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class WorkflowStep extends BaseModel implements Auditable
 {
-    use HasFactory, LogsActivity, \OwenIt\Auditing\Auditable;
+    use HasFactory, \OwenIt\Auditing\Auditable;
 
     protected $guarded = [];
-
-    #region Spatie LogsActivity
-
-    protected static $logAttributes = ['*'];
-
-    public function getDescriptionForEvent(string $eventName): string
-    {
-        return "Action sur [Etape de Workflow]: {$eventName}";
-    }
-
-    #endregion
 
     #region Eloquent Relationships
 

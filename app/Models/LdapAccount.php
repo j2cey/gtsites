@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Support\Carbon;
 use App\Traits\Base\BaseTrait;
 use OwenIt\Auditing\Contracts\Auditable;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -72,20 +71,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class LdapAccount extends Authenticatable implements Auditable
 {
-    use HasFactory, LogsActivity, \OwenIt\Auditing\Auditable, BaseTrait;
+    use HasFactory, \OwenIt\Auditing\Auditable, BaseTrait;
 
     protected $guarded = [];
-
-    #region Spatie LogsActivity
-
-    protected static $logAttributes = ['*'];
-
-    public function getDescriptionForEvent(string $eventName): string
-    {
-        return "Action sur [Compte LDAP]: {$eventName}";
-    }
-
-    #endregion
 
     #region Custom Functions
 

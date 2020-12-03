@@ -5,7 +5,6 @@ namespace App\Models;
 use PHPUnit\Util\Json;
 use Illuminate\Support\Carbon;
 use OwenIt\Auditing\Contracts\Auditable;
-use Spatie\Activitylog\Traits\LogsActivity;
 use App\Traits\BordereauremiseFile\ImportFileTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -44,18 +43,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class BordereauremiseFile extends BaseModel implements Auditable
 {
-    use HasFactory, ImportFileTrait, LogsActivity, \OwenIt\Auditing\Auditable;
-
-    #region Spatie LogsActivity
-
-    protected static $logAttributes = ['*'];
-
-    public function getDescriptionForEvent(string $eventName): string
-    {
-        return "Action sur [Fichier de Bordereau de Remise]: {$eventName}";
-    }
-
-    #endregion
+    use HasFactory, ImportFileTrait, \OwenIt\Auditing\Auditable;
 
     protected $guarded = [];
 }

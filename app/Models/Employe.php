@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Support\Carbon;
 use App\Traits\PhoneNum\HasPhoneNums;
 use OwenIt\Auditing\Contracts\Auditable;
-use Spatie\Activitylog\Traits\LogsActivity;
 use App\Traits\EmailAddress\HasEmailAddresses;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -36,19 +35,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class Employe extends BaseModel implements Auditable
 {
-    use HasFactory, LogsActivity, \OwenIt\Auditing\Auditable, HasEmailAddresses, HasPhoneNums;
+    use HasFactory, \OwenIt\Auditing\Auditable, HasEmailAddresses, HasPhoneNums;
     protected $guarded = [];
-
-    #region Spatie LogsActivity
-
-    protected static $logAttributes = ['*'];
-
-    public function getDescriptionForEvent(string $eventName): string
-    {
-        return "Action sur [Employe]: {$eventName}";
-    }
-
-    #endregion
 
     /**
      * Get the employe's full concatenated name.

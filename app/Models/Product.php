@@ -27,7 +27,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class Product extends Model implements Auditable
 {
-    use HasFactory, LogsActivity, \OwenIt\Auditing\Auditable;
+    use HasFactory, \OwenIt\Auditing\Auditable;
 
     protected $fillable = [
         'name',
@@ -42,15 +42,4 @@ class Product extends Model implements Auditable
     protected $casts = [
         'price' => 'float',
     ];
-
-    #region Spatie LogsActivity
-
-    protected static $logAttributes = ['*'];
-
-    public function getDescriptionForEvent(string $eventName): string
-    {
-        return "Action sur [Product]: {$eventName}";
-    }
-
-    #endregion
 }

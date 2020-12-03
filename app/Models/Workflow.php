@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Support\Carbon;
 use OwenIt\Auditing\Contracts\Auditable;
 use App\Traits\Workflow\WorkflowExecTrait;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -30,20 +29,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class Workflow extends BaseModel implements Auditable
 {
-    use HasFactory, LogsActivity, \OwenIt\Auditing\Auditable, WorkflowExecTrait;
+    use HasFactory, \OwenIt\Auditing\Auditable, WorkflowExecTrait;
 
     protected $guarded = [];
-
-    #region Spatie LogsActivity
-
-    protected static $logAttributes = ['*'];
-
-    public function getDescriptionForEvent(string $eventName): string
-    {
-        return "Action sur [Workflow]: {$eventName}";
-    }
-
-    #endregion
 
     #region Eloquent Relationships
 

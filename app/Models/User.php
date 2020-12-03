@@ -7,7 +7,6 @@ use Illuminate\Support\Carbon;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use OwenIt\Auditing\Contracts\Auditable;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -38,7 +37,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class User extends Authenticatable implements Auditable
 {
-    use HasFactory, Notifiable, HasRoles, LogsActivity, \OwenIt\Auditing\Auditable, BaseTrait;
+    use HasFactory, Notifiable, HasRoles, \OwenIt\Auditing\Auditable, BaseTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -79,17 +78,6 @@ class User extends Authenticatable implements Auditable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    #region Spatie LogsActivity
-
-    protected static $logAttributes = ['*'];
-
-    public function getDescriptionForEvent(string $eventName): string
-    {
-        return "Action sur [User]: {$eventName}";
-    }
-
-    #endregion
 
     #region Validation Tools
 

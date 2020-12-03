@@ -6,7 +6,6 @@ use PHPUnit\Util\Json;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use OwenIt\Auditing\Contracts\Auditable;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -36,20 +35,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class WorkflowExecModelStep extends BaseModel implements Auditable
 {
-    use HasFactory, LogsActivity, \OwenIt\Auditing\Auditable;
+    use HasFactory, \OwenIt\Auditing\Auditable;
     // TODO: définir ICI la fonction qui retourne le tableau actionvalues (destiné notamment à être utilisé dans le formulaire d'exécution d'actions)
     protected $guarded = [];
-
-    #region Spatie LogsActivity
-
-    protected static $logAttributes = ['*'];
-
-    public function getDescriptionForEvent(string $eventName): string
-    {
-        return "Action sur [Execution Etape de Workflow pour Model]: {$eventName}";
-    }
-
-    #endregion
 
     #region Eloquent Relationships
 

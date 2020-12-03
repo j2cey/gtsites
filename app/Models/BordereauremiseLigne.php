@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Support\Carbon;
 use OwenIt\Auditing\Contracts\Auditable;
-use Spatie\Activitylog\Traits\LogsActivity;
 use App\Traits\Workflow\HasWorkflowsOrActions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -38,19 +37,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class BordereauremiseLigne extends BaseModel implements Auditable
 {
-    use HasFactory, LogsActivity, \OwenIt\Auditing\Auditable, HasWorkflowsOrActions;
+    use HasFactory, \OwenIt\Auditing\Auditable, HasWorkflowsOrActions;
     protected $guarded = [];
-
-    #region Spatie LogsActivity
-
-    protected static $logAttributes = ['*'];
-
-    public function getDescriptionForEvent(string $eventName): string
-    {
-        return "Action sur [Ligne de Bordereau de Remise]: {$eventName}";
-    }
-
-    #endregion
 
     #region Eloquent Relationships
 

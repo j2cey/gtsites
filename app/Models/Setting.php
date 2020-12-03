@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -25,18 +24,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class Setting extends Model implements Auditable
 {
-    use HasFactory, LogsActivity, \OwenIt\Auditing\Auditable;
-
-    #region Spatie LogsActivity
-
-    protected static $logAttributes = ['*'];
-
-    public function getDescriptionForEvent(string $eventName): string
-    {
-        return "Action sur [Setting]: {$eventName}";
-    }
-
-    #endregion
+    use HasFactory, \OwenIt\Auditing\Auditable;
 
     #region Custom Functions
 
