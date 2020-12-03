@@ -69,6 +69,9 @@ trait LdapImportTrait
                 $ldapaccount->{$column . "_result"} = $newvalues[$column . "_result"];
             }
 
+            // username
+            $ldapaccount->username = $ldapaccount->samaccountname ? $ldapaccount->samaccountname : "NOT_DEFINED_" . $ldapaccount->objectguid;
+
             $ldapaccount->save();
             //$ldapaccount->update($newvalues);
             $this->setEmployeInfos($ldapaccount, $userldap);

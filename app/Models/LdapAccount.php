@@ -20,6 +20,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property integer|null $status_id
  *
  * @property string $objectguid
+ * @property string $username
  * @property string|null $email
  * @property string|null $password
  * @property string|null $cn

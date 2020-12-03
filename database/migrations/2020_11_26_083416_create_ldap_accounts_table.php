@@ -24,6 +24,7 @@ class CreateLdapAccountsTable extends Migration
             $table->baseFields();
 
             $table->string('objectguid')->nullable()->comment('GUID du compte');
+            $table->string('username')->unique()->comment('login du compte');
             $table->string('email')->nullable()->comment('e-mail du compte');
             $table->string('password')->nullable()->comment('mot de passe du compte');
 
