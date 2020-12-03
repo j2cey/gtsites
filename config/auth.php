@@ -51,6 +51,11 @@ return [
             'driver' => 'session',
             'provider' => 'ldap',
         ],
+
+        'ldaplocal' => [
+            'driver' => 'session',
+            'provider' => 'ldaplocal',
+        ],
     ],
 
     /*
@@ -78,6 +83,10 @@ return [
         'ldap' => [
             'driver' => 'ldap', // Was 'eloquent'.
             'model'  => App\Models\LdapAccount::class,
+        ],
+        'ldaplocal' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\LdapAccount::class,
         ],
         // 'users' => [
         //     'driver' => 'database',

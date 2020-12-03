@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Adldap\Laravel\Facades\Adldap;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -92,7 +93,7 @@ class LoginController extends Controller
             'password' => $input['password']
         ];
         if ($user->is_ldap) {
-            if (Auth::guard('ldap')->attempt($credentials)) {
+            if ( $this->attemptLdap($credentials) ) {
                 Auth::login($user);
                 // Update du PWD LDAP local
                 $ldapaccount = $user->ldapaccount;
@@ -116,5 +117,22 @@ class LoginController extends Controller
             // Authentication passed...
             return redirect()->intended('/');
         }*/
+    }
+
+    private function attemptLdap($credentials) {
+        try {
+            Adldap::connect();
+        } catch (\Exception $e) {
+            // Can't connect.
+
+            // By default, the timeout for connectivity is 5 seconds. A user
+            // will have to wait this length of time if there is issues
+            // connecting to your AD server. You can configure
+            // this in your `config/adldap.php` file.
+
+            // Try connect with ldap locally stored password
+            return Auth::guard('ldaplocal')->attempt($credentials);
+        }
+        return Auth::guard('ldap')->attempt($credentials);
     }
 }
