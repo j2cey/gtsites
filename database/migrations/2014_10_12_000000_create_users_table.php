@@ -34,6 +34,8 @@ class CreateUsersTable extends Migration
             $table->boolean('is_ldap')->default(false)->comment('indique si le compte est LDAP');
             $table->string('objectguid')->nullable()->comment('GUID du compte');
 
+            $table->string('login_type')->default("local")->comment('type de connexion');
+
             $table->rememberToken();
         });
         $this->setTableComment($this->table_name,$this->table_comment);

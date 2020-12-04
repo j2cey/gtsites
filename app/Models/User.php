@@ -32,6 +32,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property boolean $is_ldap
  * @property string|null $objectguid
  *
+ * @property string $login_type
+ *
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */

@@ -94,10 +94,13 @@ class LoginController extends Controller
         ];
         if ($user->is_ldap) {
             if ( $this->attemptLdap($credentials) ) {
+                $this->saveLoginType($user,"ldap");
                 Auth::login($user);
                 // Update du PWD LDAP local
                 $ldapaccount = $user->ldapaccount;
-                $ldapaccount->update( ['password' => Hash::make($credentials['password'])] );
+                $ldapaccount->password = Hash::make($credentials['password']);
+                $ldapaccount->saveQuietly();
+
                 //return redirect()->intended('/');
                 //return redirect()->intended('/');
                 return redirect(session('url.intended'));
@@ -108,7 +111,7 @@ class LoginController extends Controller
         if ($user->is_local) {
             $credentials = $request->only('email', 'password');
             if (Auth::attempt($credentials)) {
-                //return redirect()->intended('/');
+                $this->saveLoginType($user,"local");
                 return redirect(session('url.intended'));
             }
         }
@@ -134,5 +137,10 @@ class LoginController extends Controller
             return Auth::guard('ldaplocal')->attempt($credentials);
         }
         return Auth::guard('ldap')->attempt($credentials);
+    }
+
+    private function saveLoginType($user, $login_type) {
+        $user->login_type = $login_type;
+        $user->saveQuietly();
     }
 }
