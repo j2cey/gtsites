@@ -3,6 +3,7 @@
 namespace App\Mail;
 
 use App\Models\WorkflowExec;
+use App\Models\WorkflowStep;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -19,10 +20,11 @@ class WorkflowStepNext extends Mailable
      * Create a new message instance.
      *
      * @param WorkflowExec $exec
+     * @param WorkflowStep $next_step
      */
-    public function __construct(WorkflowExec $exec)
+    public function __construct(WorkflowExec $exec, WorkflowStep $next_step)
     {
-        $this->step = $exec->currentstep;
+        $this->step = $next_step;
         $model_type = $exec->model_type;
         $model_obj = $model_type::where('id', $exec->model_id)->first();
         if ($model_obj) {

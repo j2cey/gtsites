@@ -16,13 +16,15 @@ class WorkflowStepCompleted
 
     public $oldStep;
     public $nextStep;
+    public $exec;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($oldStep, $nextStep)
+    public function __construct($exec, $oldStep, $nextStep)
     {
+        $this->exec = $exec;
         $this->oldStep = $oldStep;
         $this->nextStep = $nextStep;
     }

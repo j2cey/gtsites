@@ -118,7 +118,7 @@ class WorkflowExec extends BaseModel implements Auditable
                 // On passe a l étape suivante
                 $traitement_effectif = 0;
                 // Notifier l'étape suivante
-                event(new WorkflowStepCompleted($this->currentstep, $next_step));
+                event(new WorkflowStepCompleted($this, $this->currentstep, $next_step));
             }
 
             $this->update([
