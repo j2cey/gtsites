@@ -8,6 +8,7 @@ use App\Mail\WorkflowStepNext;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Mail;
+use App\Events\WorkflowStepCompleted;
 use OwenIt\Auditing\Contracts\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -109,34 +110,21 @@ class WorkflowExec extends BaseModel implements Auditable
             // si toutes les occurences de l'étape en cours sont traitées,
             // on récupère l'étape suivante
             $next_step = $this->nextStep();
+
+            if ($next_step->code == "step_end") {
+                // le traitement est effectif si l'étape suivante est l'étape de fin (code = 0)
+                $traitement_effectif = 1;
+            } else {
+                // On passe a l étape suivante
+                $traitement_effectif = 0;
+                // Notifier l'étape suivante
+                event(new WorkflowStepCompleted($this->currentstep, $next_step));
+            }
+
             $this->update([
-                'traitement_effectif' => $next_step->code == "step_end" ? 1 : 0, // le traitement est effectif si l'étape suivante est l'étape de fin (code = 0)
+                'traitement_effectif' => $traitement_effectif,
                 'current_step_id' => $next_step->id,
             ]);
-
-            $this->save();
-
-            // Notifier par mail
-            if ($next_step->code != "step_end") {
-                // Notifier l'étape suivante
-                $this->notifierActeurs();
-            }
-        }
-    }
-
-    public function notifierActeurs() {
-        //$actors_ids = DB::table('model_has_roles')->where('model_type', 'App\User')->pluck('model_id')->toArray();
-        //$actors = User::whereIn('id', $actors_ids)->get();
-        $actors = User::role($this->currentstep->profile->name)->get();
-        if ($actors) {
-            foreach ($actors as $actor) {
-                if ($actor->email) {
-                    if (filter_var($actor->email, FILTER_VALIDATE_EMAIL)) {
-                        Mail::to($actor->email)
-                            ->send(new WorkflowStepNext($this));
-                    }
-                }
-            }
         }
     }
 
