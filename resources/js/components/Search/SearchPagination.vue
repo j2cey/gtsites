@@ -5,7 +5,7 @@
     >
         <span
             :class="buttonClass('first')"
-            class="tw-row-span-1 tw-flex items-center tw-justify-center tw-border tw-rounded-l-sm"
+            class="tw-row-span-1 tw-flex tw-items-center tw-justify-center tw-border tw-rounded-l-sm"
             @click="goToFirst"
         >
             <double-angle-left class="tw-fill-current tw-h-4 tw-pointer-events-none" />

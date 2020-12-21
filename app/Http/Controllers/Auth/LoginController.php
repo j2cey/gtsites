@@ -102,7 +102,6 @@ class LoginController extends Controller
                 $ldapaccount->saveQuietly();
 
                 //return redirect()->intended('/');
-                //return redirect()->intended('/');
                 return redirect(session('url.intended'));
             }
         }
