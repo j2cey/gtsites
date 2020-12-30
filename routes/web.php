@@ -7,19 +7,13 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\WorkflowController;
+use App\Http\Controllers\ElementController;
+use App\Http\Controllers\AttributController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CustomLdapController;
-use App\Http\Controllers\WorkflowExecController;
-use App\Http\Controllers\WorkflowStepController;
-use App\Http\Controllers\WorkflowActionController;
-use App\Http\Controllers\WorkflowObjectController;
-use App\Http\Controllers\BordereauremiseController;
-use App\Http\Controllers\BordereauremiseLocController;
-use App\Http\Controllers\WorkflowActionTypeController;
-use App\Http\Controllers\WorkflowExecActionController;
-use App\Http\Controllers\WorkflowObjectFieldController;
-use App\Http\Controllers\WorkflowExecModelStepController;
+use App\Http\Controllers\TypeElementController;
+use App\Http\Controllers\SubtypeElementController;
+use App\Http\Controllers\AttributValueTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,4 +77,29 @@ Route::get('dashboards/fetchagence/{id}',[DashboardController::class,'fetchagenc
 Route::resource('users',UserController::class)->middleware('auth');
 Route::get('users.fetch',[UserController::class,'fetch'])
     ->name('users.fetch')
+    ->middleware('auth');
+
+Route::resource('typeelements',TypeElementController::class)->middleware('auth');
+Route::get('typeelements.fetch',[TypeElementController::class,'fetch'])
+    ->name('typeelements.fetch')
+    ->middleware('auth');
+
+Route::resource('attributs',AttributController::class)->middleware('auth');
+Route::get('attributs.fetch',[AttributController::class,'fetch'])
+    ->name('attributs.fetch')
+    ->middleware('auth');
+
+Route::resource('attributvaluetypes',AttributValueTypeController::class)->middleware('auth');
+Route::get('attributvaluetypes.fetch',[AttributValueTypeController::class,'fetch'])
+    ->name('attributvaluetypes.fetch')
+    ->middleware('auth');
+
+Route::resource('elements',ElementController::class)->middleware('auth');
+Route::get('elements.fetch',[ElementController::class,'fetch'])
+    ->name('elements.fetch')
+    ->middleware('auth');
+
+Route::resource('subtypeelements',SubtypeElementController::class)->middleware('auth');
+Route::get('subtypeelements.fetch',[SubtypeElementController::class,'fetch'])
+    ->name('subtypeelements.fetch')
     ->middleware('auth');

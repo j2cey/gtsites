@@ -16,16 +16,33 @@
                     <a href="/dashboards" class="nav-link"><i class="nav-icon fas fa-tachometer-alt"></i> Dashboard</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Utilisateurs</a>
-                    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                    <a id="dropdownUsers" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Utilisateurs</a>
+                    <ul aria-labelledby="dropdownUsers" class="dropdown-menu border-0 shadow">
                         <li class="nav-item">
                             <a href="/users" class="nav-link">Liste</a>
                         </li>
                         <li class="dropdown-submenu dropdown-hover">
-                            <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Profiles</a>
-                            <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                            <a id="dropdownRoles" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Profiles</a>
+                            <ul aria-labelledby="dropdownRoles" class="dropdown-menu border-0 shadow">
                                 <li class="nav-item">
                                     <a href="/roles" class="nav-link">Liste</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a id="dropdownTypeelements" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Type Eléments</a>
+                    <ul aria-labelledby="dropdownTypeelements" class="dropdown-menu border-0 shadow">
+                        <li class="nav-item">
+                            <a href="/typeelements" class="nav-link">Liste</a>
+                        </li>
+                        <li class="dropdown-submenu dropdown-hover">
+                            <a id="dropdownAttributvaluetypes" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Types Valeur</a>
+                            <ul aria-labelledby="dropdownAttributvaluetypes" class="dropdown-menu border-0 shadow">
+                                <li class="nav-item">
+                                    <a href="/attributvaluetypes" class="nav-link">Liste</a>
                                 </li>
                             </ul>
                         </li>

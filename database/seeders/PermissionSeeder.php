@@ -19,10 +19,14 @@ class PermissionSeeder extends Seeder
             ['role-create', 1],
             ['role-edit', 1],
             ['role-delete', 1],
-            ['workflow-list', 4],
-            ['workflow-create', 3],
-            ['workflow-edit', 3],
-            ['workflow-delete', 3]
+            ['type_element-list', 4],
+            ['type_element-create', 3],
+            ['type_element-edit', 3],
+            ['type_element-delete', 3],
+            ['attribut-list', 4],
+            ['attribut-create', 3],
+            ['attribut-edit', 3],
+            ['attribut-delete', 3]
         ];
 
         foreach ($permissions as $permission) {

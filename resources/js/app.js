@@ -103,6 +103,9 @@ Vue.component('search-pagination', require('./components/Search/SearchPagination
 Vue.component('search-form', require('./components/Search/SearchForm').default);
 Vue.component('search-results', require('./components/Search/SearchResults').default);
 
+Vue.component('typeelements-index', require('./views/typeelements/typeelements').default);
+Vue.component('elements-index', require('./views/elements/elements').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
