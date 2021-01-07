@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Element;
+use App\Models\Attribut;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Contracts\View\View;
@@ -24,7 +25,7 @@ class ElementController extends Controller
 
     public function fetch() {
         $elements = Element::all();
-        $elements->load(['elementparent','attributs','attributs.valuetype','elementenfants','elementenfants.attributs']);
+        $elements->load(['attributs','attributs.valuetype']);
         return $elements;
     }
 
@@ -35,7 +36,7 @@ class ElementController extends Controller
      */
     public function create()
     {
-        //
+        return view('elements.create');
     }
 
     /**
@@ -46,7 +47,18 @@ class ElementController extends Controller
      */
     public function store(CreateElementRequest $request)
     {
-
+        $formInput = $request->all();
+        dd($formInput);
+        //$formInput['typeelement'] = json_decode($formInput['typeelement'], true);
+        $element = Element::create([
+            'type_element_id' => $formInput['type_element_id']
+        ]);
+        foreach ($formInput as $key => $value) {
+            $attribut = Attribut::where('uuid', $key)->first();
+            if (! is_null($attribut)) {
+                $attribut->setValue($element->id, $value);
+            }
+        }
     }
 
     /**
@@ -57,7 +69,8 @@ class ElementController extends Controller
      */
     public function show(Element $element)
     {
-        //
+        dd($element->object);
+        return $element->object;
     }
 
     /**

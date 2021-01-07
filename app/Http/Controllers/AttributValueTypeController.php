@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\AttributValueType;
+use Illuminate\Support\Facades\DB;
 
 class AttributValueTypeController extends Controller
 {
@@ -18,9 +19,38 @@ class AttributValueTypeController extends Controller
     }
 
     public function fetch() {
-        $elements = AttributValueType::orderBy('nom','ASC')->get();
+        $attributvaluetypes = AttributValueType::orderBy('nom','ASC')->get();
         //$elements->load(['element','valuetype']);
-        return $elements;
+        return $attributvaluetypes;
+    }
+
+    public function fetchcomposedsingle($id) {
+        $valuetype = AttributValueType::find($id);
+        if (is_null($valuetype->model_filterfield)) {
+            $valueslist_raw = $valuetype->model_classname::get()->pluck("label", "id")->toArray();
+        } else {
+            $valueslist_raw = $valuetype->model_classname::where($valuetype->model_filterfield,$valuetype->model_filterfieldvalue)
+                ->get();
+        }
+
+        //dd($valuetype, "fetchcomposed", $id);
+
+        return $valueslist_raw->map(function ($value, $key) {
+            return [
+                'id' => $value->id,
+                'label' => $value->label
+            ];
+        });
+    }
+
+    public function fetchcomposedall() {
+        $valueslist = [];
+        $valuetypescomposed = AttributValueType::where('est_compose', 1)->get();
+        foreach ($valuetypescomposed as $valuetype) {
+            $valueslist[$valuetype->id] = $this->fetchcomposedsingle($valuetype->id);
+        }
+
+        return $valueslist;
     }
 
     /**

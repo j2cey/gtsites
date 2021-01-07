@@ -105,6 +105,8 @@ Vue.component('search-results', require('./components/Search/SearchResults').def
 
 Vue.component('typeelements-index', require('./views/typeelements/typeelements').default);
 Vue.component('elements-index', require('./views/elements/elements').default);
+Vue.component('elements-create', require('./views/elements/create').default);
+Vue.component('elements-addupdate', require('./views/elements/addupdate').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

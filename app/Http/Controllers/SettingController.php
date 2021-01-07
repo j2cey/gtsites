@@ -14,6 +14,9 @@ class SettingController extends Controller
      */
     public function index()
     {
+        $Settings = Setting::getAllGrouped();
+        dd($Settings);
+
         $all_settings = Setting::all()->toArray();
 
         //dd($all_settings);

@@ -16,7 +16,7 @@
                     <a href="/dashboards" class="nav-link"><i class="nav-icon fas fa-tachometer-alt"></i> Dashboard</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a id="dropdownUsers" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Utilisateurs</a>
+                    <a id="dropdownUsers" href="/users" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Utilisateurs</a>
                     <ul aria-labelledby="dropdownUsers" class="dropdown-menu border-0 shadow">
                         <li class="nav-item">
                             <a href="/users" class="nav-link">Liste</a>
@@ -28,6 +28,18 @@
                                     <a href="/roles" class="nav-link">Liste</a>
                                 </li>
                             </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a id="dropdownUsers" href="/elements" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Eléments</a>
+                    <ul aria-labelledby="dropdownElements" class="dropdown-menu border-0 shadow">
+                        <li class="nav-item">
+                            <a href="/elements" class="nav-link">Liste</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="javascript:;" data-toggle="modal" data-target="#addUpdateElement">Nouvel</a>
                         </li>
                     </ul>
                 </li>

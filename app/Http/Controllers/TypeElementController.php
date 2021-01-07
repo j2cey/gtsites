@@ -24,7 +24,7 @@ class TypeElementController extends Controller
 
     public function fetch() {
         $elements = TypeElement::all();
-        $elements->load(['attributs','attributs.valuetype','subtypes','subtypes.subtype']);
+        $elements->load(['attributs','attributs.valuetype']);
         return $elements;
     }
 
@@ -56,7 +56,7 @@ class TypeElementController extends Controller
             'user_id' => $user->id,
         ]);
 
-        return $typeelement->load(['attributs','attributs.valuetype','subtypes','subtypes.subtype']);
+        return $typeelement->load(['attributs','attributs.valuetype']);
     }
 
     /**
@@ -104,7 +104,7 @@ class TypeElementController extends Controller
             'description' => $formInput['description'],
         ]);
 
-        return $typeelement->load(['attributs','attributs.valuetype','subtypes','subtypes.subtype']);
+        return $typeelement->load(['attributs','attributs.valuetype']);
     }
 
     /**

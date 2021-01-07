@@ -19,6 +19,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string $code
  * @property string|null $description
  *
+ * @property bool $est_compose
+ * @property integer|null $model_id
+ * @property string|null $model_classname
+ * @property string|null $model_tablename
+ * @property string|null $model_fieldlabel
+ * @property string|null $model_filterfield
+ * @property string|null $model_filterfieldvalue
+ *
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */

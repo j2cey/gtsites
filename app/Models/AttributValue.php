@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string|null $json_value
  *
  * @property integer|null $attribut_id
+ * @property integer|null $element_id
  *
  * @property Carbon $created_at
  * @property Carbon $updated_at
@@ -42,5 +43,34 @@ class AttributValue extends BaseModel
      */
     public function attribut() {
         return $this->belongsTo(Attribut::class, 'attribut_id');
+    }
+
+    /**
+     * Retourne l'élément
+     * @return BelongsTo
+     */
+    public function element() {
+        return $this->belongsTo(Element::class, 'element_id');
+    }
+
+    public function getValue() {
+        if ($this->attribut->valuetype->code === "boolean_value") {
+            // Type Booleen
+            return $this->boolean_value;
+        } elseif ($this->attribut->valuetype->code === "datetime_value") {
+            // Type DateTime
+            return $this->datetime_value;
+        } elseif ($this->attribut->valuetype->code === "string_value") {
+            // Type string
+            return $this->string_value;
+        } elseif ($this->attribut->valuetype->code === "integer_value") {
+            // Type integer
+            return $this->integer_value;
+        } elseif ($this->valuetype->code === "biginteger_value") {
+            // Type integer
+            return $this->biginteger_value;
+        } else {
+            return null;
+        }
     }
 }

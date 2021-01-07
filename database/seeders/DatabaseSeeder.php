@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Element;
 use Illuminate\Database\Seeder;
+use App\Models\ElementSettingType;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,8 +23,10 @@ class DatabaseSeeder extends Seeder
         $this->call(TypeDepartementSeeder::class);
         $this->call(ProductSeeder::class);
 
-        $this->call(TypeElementSeeder::class);
         $this->call(AttributValueTypeSeeder::class);
+        $this->call(ElementSettingTypeSeeder::class);
+        $this->call(ElementSettingSeeder::class);
+        $this->call(TypeElementSeeder::class);
         $this->call(AttributSeeder::class);
         $this->call(ElementSeeder::class);
     }

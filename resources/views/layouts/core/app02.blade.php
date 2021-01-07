@@ -27,6 +27,7 @@
     @yield('content')
 
     <vue-noty></vue-noty>
+    <elements-addupdate></elements-addupdate>
 </div>
 <!-- ./wrapper -->
 

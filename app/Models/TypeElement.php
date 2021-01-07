@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Traits\ComposedValueType\IsComposedValueType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -25,7 +26,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class TypeElement extends BaseModel
 {
-    use HasFactory;
+    use HasFactory, IsComposedValueType;
 
     protected $guarded = [];
 
@@ -65,6 +66,40 @@ class TypeElement extends BaseModel
      */
     public function subtypes() {
         return $this->hasMany(SubtypeElement::class)->orderBy('ord');
+    }
+
+    #endregion
+
+    #region IsComposedValueType Implementation
+
+    protected function valueTypeTableName(): string
+    {
+        return "elements";
+    }
+
+    protected function valueTypeClassName(): string
+    {
+        return "App\Models\Element";
+    }
+
+    protected function valueTypeFieldLabel(): string
+    {
+        return "";
+    }
+
+    protected function labelValue(): string
+    {
+        return $this->nom;
+    }
+
+    protected function filterFieldvalue()
+    {
+        return $this->id;
+    }
+
+    protected function filterField(): string
+    {
+        return "type_element_id";
     }
 
     #endregion

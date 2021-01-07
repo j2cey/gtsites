@@ -70,7 +70,6 @@
                                         <div class="row">
                                             <div class="col-md-12 col-sm-6 col-12">
                                                 <div class="info-box">
-
                                                     <div class="info-box-content">
                                                         <dt>Description</dt>
                                                         <dd>{{ typeelement.description }}</dd>
@@ -112,7 +111,7 @@
 
                                         </div>
 
-                                        <div class="row">
+                                        <div v-if="true === false" class="row">
                                             <!-- /.col -->
                                             <div class="col-md-12 col-sm-6 col-12">
 

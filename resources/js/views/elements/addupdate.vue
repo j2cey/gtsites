@@ -4,7 +4,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel" v-if="editing">Modifier Type Element</h5>
-                    <h5 class="modal-title" id="exampleModalLabel" v-else>Créer Nouveau Type Element</h5>
+                    <h5 class="modal-title" id="exampleModalLabel" v-else>Créer Nouvel Element</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -12,51 +12,84 @@
                 <div class="modal-body">
 
                     <form class="form-horizontal" @submit.prevent @keydown="elementForm.errors.clear()">
+
                         <div class="card-body">
                             <div class="form-group row">
-                                <label for="element_nom" class="col-sm-2 col-form-label">Nom</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="element_nom" name="nom" autocomplete="nom" autofocus placeholder="Titre" v-model="elementForm.nom">
-                                    <span class="invalid-feedback d-block" role="alert" v-if="elementForm.errors.has('nom')" v-text="elementForm.errors.get('nom')"></span>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="m_select_element_parent" class="col-sm-2 col-form-label">Parent</label>
+                                <label for="m_select_type_element" class="col-sm-2 col-form-label">Type</label>
                                 <div class="col-sm-10">
                                     <multiselect
-                                        id="m_select_element_parent"
-                                        v-model="elementForm.elementparent"
-                                        selected.sync="elementForm.elementparent"
+                                        id="m_select_type_element"
+                                        v-model="elementForm.typeelement"
+                                        selected.sync="elementForm.typeelement"
                                         value=""
-                                        :options="elementparents"
+                                        :options="typeelements"
                                         :searchable="true"
                                         :multiple="false"
                                         label="nom"
                                         track-by="id"
                                         key="id"
-                                        placeholder="Parent"
+                                        placeholder="Type"
+
+                                        :preselect-first="true"
+                                        @select="selectedTypeChange"
                                     >
                                     </multiselect>
-                                    <span class="invalid-feedback d-block" role="alert" v-if="elementForm.errors.has('elementparent')" v-text="elementForm.errors.get('elementparent')"></span>
+                                    <span class="invalid-feedback d-block" role="alert" v-if="elementForm.errors.has('typeelement')" v-text="elementForm.errors.get('typeelement')"></span>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label for="element_description" class="col-sm-2 col-form-label">Description</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="element_description" name="description" required autocomplete="description" autofocus placeholder="Description" v-model="elementForm.description">
-                                    <span class="invalid-feedback d-block" role="alert" v-if="elementForm.errors.has('description')" v-text="elementForm.errors.get('description')"></span>
+                            <div class="form-group row" v-for="(attribut, index) in selectedType.attributs" v-if="selectedType.attributs">
+
+                                <div v-if="attribut.valuetype.est_compose" class="col-sm-10">
+                                    <multiselect
+                                        :id="attribut.valuetype.uuid"
+                                        v-model="elementForm[attribut.uuid]"
+                                        selected.sync="elementForm[attribut.uuid]"
+                                        value=""
+                                        :options="composedvaluetypes[attribut.valuetype.id]"
+                                        :searchable="true"
+                                        :multiple="false"
+                                        label="label"
+                                        track-by="id"
+                                        key="id"
+                                        :placeholder="attribut.nom"
+                                    >
+                                    </multiselect>
+                                    <span class="invalid-feedback d-block" role="alert" v-if="elementForm.errors.has('typeelement')" v-text="elementForm.errors.get('typeelement')"></span>
                                 </div>
-                            </div>
-                            <div class="form-group">
+
+                                <div class="col-sm-10" v-else-if="attribut.valuetype.code === 'string_value'">
+                                    <input type="text" class="form-control" :id="attribut.uuid" :name="attribut.uuid" :placeholder="attribut.nom + ' (chaine caractères)'" v-model="elementForm[attribut.uuid]">
+                                    <span class="invalid-feedback d-block" role="alert" v-if="elementForm.errors.has(`${attribut.nom}`)" v-text="elementForm.errors.get(`${attribut.nom}`)"></span>
+                                </div>
+                                <div class="col-sm-10" v-if="attribut.valuetype.code === 'biginteger_value' || attribut.valuetype.code === 'integer_value'">
+                                    <input type="text" class="form-control" :id="attribut.uuid" :name="attribut.uuid" :placeholder="attribut.nom + ' (entier)'" v-model="elementForm[attribut.uuid]">
+                                    <span class="invalid-feedback d-block" role="alert" v-if="elementForm.errors.has(`${attribut.nom}`)" v-text="elementForm.errors.get(`${attribut.nom}`)"></span>
+                                </div>
+                                <div class="col-sm-10" v-else-if="attribut.valuetype.code === 'boolean_value'">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" :id="attribut.uuid" :name="attribut.uuid" :placeholder="attribut.nom + ' (booléen)'" v-model="elementForm[attribut.uuid]">
+                                        <label class="form-check-label" :for="attribut.uuid">{{ attribut.nom }}</label>
+                                        <span class="invalid-feedback d-block" role="alert" v-if="elementForm.errors.has(`${attribut.uuid}`)" v-text="elementForm.errors.get(`${attribut.uuid}`)"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-10" v-else-if="attribut.valuetype.code === 'datetime_value'">
+                                    <VueCtkDateTimePicker v-model="elementForm[attribut.uuid]" :label="attribut.nom" format="YYYY-MM-DD hh:mm:ss" />
+                                    <span class="invalid-feedback d-block" role="alert" v-if="elementForm.errors.has(`${attribut.nom}`)" v-text="elementForm.errors.get(`${attribut.nom}`)"></span>
+                                </div>
+
+                                <div class="col-sm-10" v-else>
+
+                                </div>
                             </div>
                         </div>
+
                     </form>
 
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                    <button type="button" class="btn btn-primary" @click="updateElement()" :disabled="!isValidCreateForm" v-if="editing">Enregistrer</button>
-                    <button type="button" class="btn btn-primary" @click="createElement()" :disabled="!isValidCreateForm" v-else>Créer Element</button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-primary btn-sm" @click="updateElement()" :disabled="!isValidCreateForm" v-if="editing">Enregistrer</button>
+                    <button type="button" class="btn btn-warning btn-sm" @click="createElement()" :disabled="!isValidCreateForm" v-else>Créer Element</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -69,9 +102,7 @@
     import Multiselect from 'vue-multiselect'
     class Element {
         constructor(element) {
-            this.nom = element.nom || ''
-            this.elementparent = element.elementparent || ''
-            this.description = element.description || ''
+            this.typeelement = element.typeelement || ''
         }
     }
     export default {
@@ -95,17 +126,23 @@
             })
         },
         created() {
-            axios.get('/elements.fetch')
-                .then(({data}) => this.elementparents = data);
+            axios.get('/typeelements.fetch')
+                .then(({data}) => this.typeelements = data);
+
+            axios.get('/attributvaluetypes/fetchcomposedall')
+                .then(({data}) => this.composedvaluetypes = data);
         },
         data() {
             return {
                 element: {},
-                elementForm: new Form(new Element({})),
+                attributvalues: [],
+                elementForm: new Form({}), // "typeelement": {} ,"attributvalues": []
                 elementId: null,
                 editing: false,
                 loading: false,
-                elementparents: []
+                typeelements: [],
+                selectedtype: {},
+                composedvaluetypes: []
             }
         },
         methods: {
@@ -117,6 +154,10 @@
                         this.loading = false
                         this.$parent.$emit('new_element_created', newelement)
                         $('#addUpdateElement').modal('hide')
+                        window.noty({
+                            message: 'Element créé avec succès',
+                            type: 'success'
+                        })
                     }).catch(error => {
                     this.loading = false
                 });
@@ -129,14 +170,41 @@
                         this.loading = false
                         this.$parent.$emit('element_updated', updelement)
                         $('#addUpdateElement').modal('hide')
+                        window.noty({
+                            message: 'Element modifié avec succès',
+                            type: 'success'
+                        })
                     }).catch(error => {
                     this.loading = false
                 });
+            },
+            selectedTypeChange(selectedtype) {
+                this.initNewForm(selectedtype);
+            },
+            initNewForm(selectedtype) {
+                //console.log(selectedtype)
+                this.selectedtype = selectedtype
+
+                this.attributvalues = [];
+
+                this.attributvalues['type_element_id'] = selectedtype.id; //JSON.stringify(selectedtype);
+                this.selectedtype.attributs.forEach((value, index) => {
+                    this.attributvalues[value.uuid] = null;
+                });
+                this.elementForm = new Form( this.attributvalues )
+                console.log("selected type:", selectedtype);
+                console.log("elementForm:", this.elementForm);
             }
         },
         computed: {
             isValidCreateForm() {
-                return !this.loading
+                return !this.loading// && (this.selectedtype.length > 0)
+            },
+            selectedType() {
+                return this.selectedtype
+            },
+            composedValueTypes() {
+                return this.composedvaluetypes;
             }
         }
     }

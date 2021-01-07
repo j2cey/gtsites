@@ -12,7 +12,6 @@ use App\Http\Controllers\AttributController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CustomLdapController;
 use App\Http\Controllers\TypeElementController;
-use App\Http\Controllers\SubtypeElementController;
 use App\Http\Controllers\AttributValueTypeController;
 
 /*
@@ -89,6 +88,10 @@ Route::get('attributs.fetch',[AttributController::class,'fetch'])
     ->name('attributs.fetch')
     ->middleware('auth');
 
+Route::get('/attributvaluetypes/fetchcomposedsingle/{id}', [AttributValueTypeController::class, 'fetchcomposedsingle'])
+    ->name('attributvaluetypes.fetchcomposedsingle');
+Route::get('/attributvaluetypes/fetchcomposedall/', [AttributValueTypeController::class, 'fetchcomposedall'])
+    ->name('attributvaluetypes.fetchcomposedall');
 Route::resource('attributvaluetypes',AttributValueTypeController::class)->middleware('auth');
 Route::get('attributvaluetypes.fetch',[AttributValueTypeController::class,'fetch'])
     ->name('attributvaluetypes.fetch')
@@ -97,9 +100,4 @@ Route::get('attributvaluetypes.fetch',[AttributValueTypeController::class,'fetch
 Route::resource('elements',ElementController::class)->middleware('auth');
 Route::get('elements.fetch',[ElementController::class,'fetch'])
     ->name('elements.fetch')
-    ->middleware('auth');
-
-Route::resource('subtypeelements',SubtypeElementController::class)->middleware('auth');
-Route::get('subtypeelements.fetch',[SubtypeElementController::class,'fetch'])
-    ->name('subtypeelements.fetch')
     ->middleware('auth');

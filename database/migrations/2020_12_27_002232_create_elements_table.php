@@ -23,7 +23,7 @@ class CreateElementsTable extends Migration
             $table->id();
             $table->baseFields();
 
-            $table->foreignId('type_element')->nullable()
+            $table->foreignId('type_element_id')->nullable()
                 ->comment('reference du type d elements')
                 ->constrained()->onDelete('set null');
         });
@@ -39,7 +39,7 @@ class CreateElementsTable extends Migration
     {
         Schema::table($this->table_name, function (Blueprint $table) {
             $table->dropBaseForeigns();
-            $table->dropForeign(['type_element']);
+            $table->dropForeign(['type_element_id']);
         });
         Schema::dropIfExists($this->table_name);
     }
